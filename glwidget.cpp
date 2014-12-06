@@ -175,7 +175,7 @@ GLWidget::GLWidget(QWidget *parent) :
 	rotation[5] = 1;
 	rotation[10] = 1;
 	rotation[15] = 1;
-	scale = 1;
+    scale = 2;
 	tx=0;
 	ty=0;
 	tz=0;
@@ -374,10 +374,13 @@ void GLWidget::mouseMoveEvent(QMouseEvent *event)
             glMultMatrixf(rotation);
             glGetFloatv(GL_MODELVIEW_MATRIX, rotation);
         }glPopMatrix();
-        lastPos = event->pos();
 
         updateGL();
 #endif
+     }
+     if (event->buttons() & Qt::RightButton) {
+        scale+=(dy/10.);
+        updateGL();
      }
 
      lastPos = event->pos();
@@ -1283,7 +1286,7 @@ void GLWidget::paintGL() {
     glLoadIdentity();
     gluLookAt(0, 0, -zoom, 0, 0, 0, 0, 1, 0);
     //printf("zoom: %f\n", zoom);
-    glTranslatef(tx, ty, tz);
+    //glTranslatef(tx, ty, tz);
     glMultMatrixf(rotation);
     glScalef(scale, scale, scale);
 
