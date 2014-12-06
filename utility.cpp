@@ -59,7 +59,8 @@ float* read_volume(string file, Grid &g)  //read volume data
 			//MOD-BY-TzuHsuan 10/08/2012-BEGIN
 			printf(" can't open header %s\n", file.c_str());
 			//MOD-BY-TzuHsuan 10/08/2012-END
-			exit(0);
+            return NULL;
+            //exit(0);
 		}
 
 		while(fscanf(in,"%s",temp)!=EOF)
@@ -283,7 +284,7 @@ myvector* read_vector_volume(string file, VectorData &vec_data, int vec_dim)  //
 		in = fopen(file.c_str(), "rb");
 		if (in == NULL) {
 			printf(" can't open file %s\n", file.c_str());
-			exit(0);
+            return NULL;
 		}
 		
 		fread(&vec_data.xdim,sizeof(int),1,in);
@@ -352,7 +353,7 @@ void read_header(char* fname, Grid &g)  //read volume data
 			//MOD-BY-TzuHsuan 10/08/2012-BEGIN
 			printf(" can't open header %s\n", file.c_str());
 			//MOD-BY-TzuHsuan 10/08/2012-END
-			exit(0);
+            // exit(0);
 		}
 
 		while(fscanf(in,"%s",temp)!=EOF)

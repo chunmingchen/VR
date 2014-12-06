@@ -31,22 +31,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     h.data.volume = NULL;
 #if 1
-    g.data.volume = read_volume("/data/flow/plume.nhdr", g);
-    ui->statusBar->showMessage("Read Data Property Successfully!");
+    g.data.volume = read_volume("/data1/flow/plume.nhdr", g);
+    if (g.data.volume!=NULL) {
+        ui->statusBar->showMessage("Read Data Property Successfully!");
 
-    // create cubic visibility
-    h.data.size = g.xdim*g.ydim*g.zdim;
-    h.data.volume = new float[h.data.size];
-    h.data.xdim = g.xdim;
-    h.data.ydim = g.ydim;
-    {
-        int x,y,z,i=0;
-        for (z=0; z<g.zdim; z++)
-            for (y=0; y<g.ydim; y++)
-                for (x=0; x<g.xdim; x++){
-                    h.data.volume[i++] = z>g.zdim/3 && z<g.zdim*2/3 && y>g.ydim/3 && y<g.ydim*2/3 && x>g.xdim/3 && x<g.xdim*2/3 ?
-                                .5: 0;
-                }
+        // create cubic visibility
+        h.data.size = g.xdim*g.ydim*g.zdim;
+        h.data.volume = new float[h.data.size];
+        h.data.xdim = g.xdim;
+        h.data.ydim = g.ydim;
+        {
+            int x,y,z,i=0;
+            for (z=0; z<g.zdim; z++)
+                for (y=0; y<g.ydim; y++)
+                    for (x=0; x<g.xdim; x++){
+                        h.data.volume[i++] = z>g.zdim/3 && z<g.zdim*2/3 && y>g.ydim/3 && y<g.ydim*2/3 && x>g.xdim/3 && x<g.xdim*2/3 ?
+                                    .5: 0;
+                    }
+        }
     }
 #endif
 }
