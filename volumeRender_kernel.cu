@@ -147,8 +147,10 @@ d_render(uint *d_output)
 
     // calculate eye ray in world space
     Ray eyeRay;
-    float u = (x / (float) c_vrParam.imageW)*2.0f*c_vrParam.gridScale_X-c_vrParam.gridScale_X;
-    float v = (y / (float) c_vrParam.imageH)*2.0f*c_vrParam.gridScale_Y-c_vrParam.gridScale_Y;
+    //float u = (x / (float) c_vrParam.imageW)*2.0f*c_vrParam.gridScale_X-c_vrParam.gridScale_X;
+    //float v = (y / (float) c_vrParam.imageH)*2.0f*c_vrParam.gridScale_Y-c_vrParam.gridScale_Y;
+    float u = (x / (float) c_vrParam.imageW)*2.0f-1.f;
+    float v = (y / (float) c_vrParam.imageH)*2.0f-1.f;
     //float u = (x / (float) W)*2.0f-1.0f;
     //float v = (y / (float) H)*2.0f-1.0f;
     //float w = (z / (float) imageH)*2.0f-1.0f;
@@ -182,6 +184,9 @@ d_render(uint *d_output)
         float x = (pos.x/(2.0*c_vrParam.gridScale_X)+0.5)*(c_vrParam.volumeSize.width-1);
         float y = (pos.y/(2.0*c_vrParam.gridScale_Y)+0.5)*(c_vrParam.volumeSize.height-1);
         float z = (pos.z/(2.0*c_vrParam.gridScale_Z)+0.5)*(c_vrParam.volumeSize.depth-1);
+        //float x = pos.x*0.5f+0.5f;
+        //float y = pos.y*0.5f+0.5f;
+        //float z = pos.z*0.5f+0.5f;
         sample = tex3D(tex_volume, x, y, z);
 		
         sample = (sample-c_vrParam.min_value)*temp_range;    // rmap scale to [0 , 1]
@@ -197,12 +202,12 @@ d_render(uint *d_output)
         if (c_vrParam.visibilityOn) {
             float visible = tex3D(tex_vis, x, y, z);
             //alpha = visible;
-            if (visible == 0) {
+            if (visible < .5){ // 0) {
                 float m = (col.x+col.y+col.z)/3.f;  // lightness
                 col.x = col.y = col.z = m;
-                alpha = fmin(alpha, .005f);
+                alpha *= 0.5; //fmin(alpha, .05f);
             }else {
-                alpha = visible;
+                alpha *= visible;
             }
         }
 

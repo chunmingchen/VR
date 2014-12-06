@@ -44,7 +44,8 @@ MainWindow::MainWindow(QWidget *parent) :
         for (z=0; z<g.zdim; z++)
             for (y=0; y<g.ydim; y++)
                 for (x=0; x<g.xdim; x++){
-                    h.data.volume[i++] = z>g.zdim/3 && z<g.zdim*2/3 && y>g.ydim/3 && y<g.ydim*2/3 && x>g.xdim/3 && x<g.xdim*2/3;
+                    h.data.volume[i++] = z>g.zdim/3 && z<g.zdim*2/3 && y>g.ydim/3 && y<g.ydim*2/3 && x>g.xdim/3 && x<g.xdim*2/3 ?
+                                .5: 0;
                 }
     }
 #endif

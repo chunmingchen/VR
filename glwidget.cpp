@@ -1283,7 +1283,7 @@ void GLWidget::paintGL() {
     glLoadIdentity();
     gluLookAt(0, 0, -zoom, 0, 0, 0, 0, 1, 0);
     //printf("zoom: %f\n", zoom);
-    //glTranslatef(tx, ty, tz);
+    glTranslatef(tx, ty, tz);
     glMultMatrixf(rotation);
     glScalef(scale, scale, scale);
 
@@ -1294,8 +1294,7 @@ void GLWidget::paintGL() {
 	//GLfloat modelView[16];
 	//sdkStartTimer(&timer);
 	//printf("zoom:%f\n",zoom);
-	//if(volume_mapper == 1)
-    draw_box(.5,.5,.5);
+    //if(volume_mapper == 1)
     {
 
         //glPopMatrix();
@@ -1353,7 +1352,7 @@ void GLWidget::paintGL() {
         render();
 
         // display results
-        glClear(GL_COLOR_BUFFER_BIT);
+        //glClear(GL_COLOR_BUFFER_BIT);
 
         // draw image from PBO
         glDisable(GL_DEPTH_TEST);
@@ -1393,6 +1392,8 @@ void GLWidget::paintGL() {
 
 #endif
 	}
+
+    draw_box(this->gridScale_X*2.5f,this->gridScale_Y*2.5f,this->gridScale_Z*2.5f);
 
 #if 0
 	else
