@@ -105,7 +105,7 @@ GLWidget::GLWidget(QWidget *parent) :
 	bounding_box = true;
 	grid_line = false;
 	gmm_render = false;
-	FOV = 60;
+    FOV = 60;
     zoom			= 5;
 	gpu_zoom = zoom;
     swing_angle		= 0;
@@ -1396,7 +1396,7 @@ void GLWidget::paintGL() {
 #endif
 	}
 
-    draw_box(this->gridScale_X*2.5f,this->gridScale_Y*2.5f,this->gridScale_Z*2.5f);
+    draw_box(this->gridScale_X*2.f,this->gridScale_Y*2.f,this->gridScale_Z*2.f);
 
 #if 0
 	else

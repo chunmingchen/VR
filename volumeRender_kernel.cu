@@ -190,7 +190,7 @@ d_render(uint *d_output)
     //float w = (z / (float) imageH)*2.0f-1.0f;
 
     eyeRay.o = make_float3(mul(c_invViewMatrix, make_float4(0.0f, 0.0f, 0.0f, 1.0f)));
-    eyeRay.d = normalize(make_float3(u, v, -2.0f));
+    eyeRay.d = normalize(make_float3(u, v, -1.732f)); // 60 degree
     eyeRay.d = mul(c_invViewMatrix, eyeRay.d);
 
     // find intersection with box
