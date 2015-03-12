@@ -191,7 +191,7 @@ d_render(uint *d_output)
 
     eyeRay.o = make_float3(mul(c_invViewMatrix, make_float4(0.0f, 0.0f, 0.0f, 1.0f)));
     eyeRay.d = normalize(make_float3(u, v, -1.732f)); // 60 degree
-    eyeRay.d = mul(c_invViewMatrix, eyeRay.d);
+    eyeRay.d = mul(c_invViewMatrix, eyeRay.d)*2.f; // 2 slep width
 
     // find intersection with box
     float tnear, tfar;
@@ -231,12 +231,20 @@ d_render(uint *d_output)
 		//float4 col = tex1D(transferTex, (sample-transferOffset)*transferScale);
 
         float4 col = tex1D(transferTex_color, sample);
-        float alpha = tex1D(transferTex_alpha, sample);
+        float alpha ;
 
         //*************** JIMMY ADDED ***********
         // Visibility
         // **************************************
 #if 1 // transition
+        if (c_vrParam.visibilityOn) {
+            float v = tex3D(tex_vis, x,y,z);
+            alpha = tex1D(transferTex_alpha, v);
+        } else
+        {
+            alpha = tex1D(transferTex_alpha, sample);
+        }
+#elif 0
         if (c_vrParam.visibilityOn) {
             float visible = tex3D(tex_vis, x,y,z);
             d_changeSaturation(col, visible);

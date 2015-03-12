@@ -200,3 +200,13 @@ void Transfer_Func1D::on_comboBox_currentIndexChanged(int index)
 	glwtrf->updateGL();
 	glwtrf->glw->updateGL();
 }
+
+void Transfer_Func1D::on_comboBox_activated(const QString &arg1)
+{
+
+}
+
+void Transfer_Func1D::on_comboBox_currentIndexChanged(const QString &arg1)
+{
+
+}

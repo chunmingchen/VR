@@ -101,7 +101,7 @@ void MainWindow::on_Draw_PushButton_clicked()
 		glw->mindim = mindim;
 		glw->Reset_View();	
 		
-        glw->stepsize = (1.0/(maxdim));
+        glw->stepsize = (2.0/(maxdim));
 		//glw->stepsize = glw->stepsize*2
 
 		extern dim3 blockSize;
